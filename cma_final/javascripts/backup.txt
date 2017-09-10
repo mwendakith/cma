@@ -1,0 +1,52 @@
+<script src="javascripts/jquery-1.11.0.js">
+$("#div_level").on("change", function (){
+
+	var foreign_key;
+	if($("#div_level").value() == "Archdiocese"){
+		 document.getElementById("suggestions").hide();
+		return;
+	}
+	
+	else if($("#div_level").val() == "Diocese"){
+		foreign_key = "archdiocese";
+	}
+	
+	else if($("#div_level").val() == "Deanery"){
+		foreign_key = "diocese";
+		
+	}
+	
+	else if($("#div_level").val() == "Parish"){
+		foreign_key = "deanery";
+	}
+	
+	else if ($("#div_level").val() == "Outstation"){
+		foreign_key = "parish";
+	}
+	$("#test").val(foreign_key);
+	
+	document.getElementById("test2").innerHTML = "Anything";
+	
+	if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("suggestions").innerHTML=xmlhttp.responseText;
+	
+	
+    }
+  }
+xmlhttp.open("GET","functions/get_suggestion.php?divid="+foreign_key,true);
+xmlhttp.send();
+	
+}
+)
+</script>
